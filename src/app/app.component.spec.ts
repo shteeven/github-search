@@ -1,4 +1,3 @@
-
 import { AppComponent } from './app.component';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 
@@ -9,6 +8,7 @@ describe('AppComponent', () => {
   beforeEach(() => spectator = createComponent());
 
   it('should have a success class by default', () => {
+    // @ts-ignore
     expect(spectator.query('button')).toBeTruthy();
   });
 });
