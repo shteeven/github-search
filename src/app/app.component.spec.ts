@@ -1,31 +1,14 @@
-import { TestBed } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
+import { Spectator, createComponentFactory } from '@ngneat/spectator';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  });
+  let spectator: Spectator<AppComponent>;
+  const createComponent = createComponentFactory(AppComponent);
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  beforeEach(() => spectator = createComponent());
 
-  it(`should have as title 'github-search'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('github-search');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('github-search app is running!');
+  it('should have a success class by default', () => {
+    expect(spectator.query('button')).toBeTruthy();
   });
 });

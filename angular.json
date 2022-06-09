@@ -79,8 +79,7 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {}
+          "builder": "@angular-builders/jest:run"
         },
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
