@@ -10,4 +10,13 @@
   />
 </div>
 
-{{ results$ | async | json }}
+<ng-container *ngIf="searchValue$ | async; else noSearchValue">
+  <div *ngIf="results$ | async as results; else noSearchResults">
+    {{ results | json }}
+  </div>
+  <ng-template #noSearchResults>
+    No results return for the given search term.
+  </ng-template>
+</ng-container>
+
+<ng-template #noSearchValue> Enter a search value to see results. </ng-template>

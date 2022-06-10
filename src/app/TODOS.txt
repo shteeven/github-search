@@ -9,8 +9,8 @@ count, profile pictures, etc.
 ● I can select a search result and be taken to the applicable page on github.com API
 
 ** UI TODOs - focus on User search first
-- Create search input
-- Filter results by input submissions
+X Create search input
+X Filter results by input submissions
 - Create/Style details component (Users)
 - Add default view "Type a search value to see results"
 - Add no results view "No results. Update search to see results"
