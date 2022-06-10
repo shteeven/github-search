@@ -1,0 +1,13 @@
+<div class="p-2">
+  <label for="search" class="sr-only">Search field</label>
+  <input
+    [value]="searchValue$ | async"
+    #search
+    (keyup.enter)="updateSearchValue(search.value)"
+    id="search"
+    placeholder="Type your search here"
+    class="form-field-input"
+  />
+</div>
+
+{{ results$ | async | json }}
