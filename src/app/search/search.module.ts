@@ -4,6 +4,8 @@ import { SearchApiService } from './search-api.service';
 import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from './search.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DetailsModule } from '../components/details/details.module';
+import { PageSelectorModule } from '../components/page-selector/page-selector.module';
 
 const routes: Routes = [
   {
@@ -13,7 +15,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes), HttpClientModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    HttpClientModule,
+    DetailsModule,
+    PageSelectorModule
+  ],
   declarations: [SearchComponent],
   providers: [SearchApiService]
 })

@@ -11,19 +11,30 @@
   />
 </div>
 
+<div class="flex justify-between">
+  <span> {{ count$ | async }} {{ selectedFilter$ | async | titlecase }} </span>
+</div>
+
 <div data-test="resultContent">
   <ng-container *ngIf="searchValue$ | async; else noSearchValue">
-    <ng-container *ngIf="items$ | async as items">
-      <ng-container *ngIf="items?.length; else noResults">
-        {{ items | json }}
-      </ng-container>
-      <ng-template #noResults>
+    <div *ngIf="items$ | async as items">
+      <app-details
+        *ngFor="let item of items; trackBy: trackById"
+        [item]="item"
+      ></app-details>
+      <ng-container *ngIf="!items.length">
         No results return for the given search term.
-      </ng-template>
-    </ng-container>
+      </ng-container>
+    </div>
   </ng-container>
 
   <ng-template #noSearchValue>
     Enter a search value to see results.
   </ng-template>
 </div>
+<app-page-selector
+  [pageIndex]="pageIndex$ | async"
+  [numberOfPages]="numberOfPages$ | async"
+  (pageSelected)="pageSelected($event)"
+>
+</app-page-selector>

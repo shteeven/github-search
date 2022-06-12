@@ -2,28 +2,42 @@ import { Component } from '@angular/core';
 import { SearchApiService } from './search-api.service';
 import {
   BehaviorSubject,
+  combineLatest,
+  debounceTime,
   map,
-  Observable,
   of,
-  pluck,
   shareReplay,
   switchMap
 } from 'rxjs';
-import { QueryItem } from './search.models';
 
 @Component({
   templateUrl: 'search.component.html'
 })
 export class SearchComponent {
-  searchValueSource = new BehaviorSubject('');
-  searchValue$ = this.searchValueSource
-    .asObservable()
-    .pipe(map((value) => value?.trim()));
+  private searchValueSource = new BehaviorSubject('steven');
+  searchValue$ = this.searchValueSource.pipe(map((value) => value?.trim()));
 
-  results$ = this.searchValue$.pipe(
-    switchMap((value) => {
-      if (!value) return of(null);
-      return this.api.getList({ query: value });
+  private selectedFilterSource = new BehaviorSubject('users');
+  selectedFilter$ = this.selectedFilterSource.asObservable();
+
+  private pageIndexSource = new BehaviorSubject(0);
+  pageIndex$ = this.pageIndexSource.pipe(debounceTime(500));
+
+  private pageSizeSource = new BehaviorSubject(10);
+  pageSize$ = this.pageSizeSource.asObservable();
+
+  results$ = combineLatest([
+    this.searchValue$,
+    this.pageIndex$,
+    this.pageSize$
+  ]).pipe(
+    switchMap(([searchValue, pageIndex, pageSize]) => {
+      if (!searchValue) return of(null);
+      return this.api.getUserList({
+        query: searchValue,
+        size: pageSize,
+        index: pageIndex
+      });
     }),
     shareReplay({
       refCount: true,
@@ -32,11 +46,22 @@ export class SearchComponent {
   );
 
   items$ = this.results$.pipe(map((result) => result?.items));
-  count$ = this.results$.pipe(map((result) => result?.total_count));
+  count$ = this.results$.pipe(map((result) => result?.total_count ?? 0));
+  numberOfPages$ = combineLatest([this.pageSize$, this.count$]).pipe(
+    map(([pageSize, count]) => Math.ceil(count / pageSize))
+  );
 
   constructor(private api: SearchApiService) {}
 
-  updateSearchValue(value: string) {
+  updateSearchValue(value: string): void {
     this.searchValueSource.next(value);
+  }
+
+  pageSelected($event: number): void {
+    this.pageIndexSource.next($event);
+  }
+
+  trackById(_: number, item: { id: number }): number {
+    return item.id;
   }
 }
