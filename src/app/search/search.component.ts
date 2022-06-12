@@ -11,7 +11,8 @@ import {
 } from 'rxjs';
 
 @Component({
-  templateUrl: 'search.component.html'
+  templateUrl: 'search.component.html',
+  styleUrls: ['search.component.scss']
 })
 export class SearchComponent {
   private searchValueSource = new BehaviorSubject('steven');
@@ -21,14 +22,14 @@ export class SearchComponent {
   selectedFilter$ = this.selectedFilterSource.asObservable();
 
   private pageIndexSource = new BehaviorSubject(0);
-  pageIndex$ = this.pageIndexSource.pipe(debounceTime(500));
+  pageIndex$ = this.pageIndexSource.asObservable();
 
   private pageSizeSource = new BehaviorSubject(10);
   pageSize$ = this.pageSizeSource.asObservable();
 
   results$ = combineLatest([
     this.searchValue$,
-    this.pageIndex$,
+    this.pageIndex$.pipe(debounceTime(500)),
     this.pageSize$
   ]).pipe(
     switchMap(([searchValue, pageIndex, pageSize]) => {

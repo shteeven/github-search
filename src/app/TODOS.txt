@@ -11,16 +11,16 @@ count, profile pictures, etc.
 ** UI TODOs - focus on User search first
 X Create search input
 X Filter results by input submissions
-- Create/Style details component (Users)
+X Create/Style details component (Users)
 X Add default view "Type a search value to see results"
 X Add no results view "No results. Update search to see results"
 X Add error message "Sorry, something went wrong with your search"
 - Create sort dropdown
 - Sort results by input submissions
-- Create paginator component
-- Update results on paginator change
+X Create paginator component
+X Update results on paginator change
 - Style inputs (search, sort, paginator)
-- Style page layout (mobile)
+X Style page layout (mobile)
 - Style page layout (tablet)
 - Style page layout (desktop)
 

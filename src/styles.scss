@@ -2,3 +2,24 @@
 @import 'styles/dark';
 @import 'styles/forms';
 @import 'styles/utils';
+@import 'styles/buttons';
+
+body {
+  // Color vars
+  --color-fg-default: #24292f;
+  --color-fg-muted: #57606a;
+  --color-fg-accent: #0969da;
+  --color-bg-emphasis: #6e7681;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  color: var(--color-fg-default);
+}
+
+a {
+  color: var(--color-fg-accent);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

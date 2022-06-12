@@ -5,10 +5,10 @@ describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
   const createComponent = createComponentFactory(AppComponent);
 
-  beforeEach(() => spectator = createComponent());
+  beforeEach(() => (spectator = createComponent()));
 
   it('should have a success class by default', () => {
     // @ts-ignore
-    expect(spectator.query('button')).toBeTruthy();
+    expect(spectator.component).toBeTruthy();
   });
 });

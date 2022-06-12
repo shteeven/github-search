@@ -1,33 +1,30 @@
-// TODO: implement dark and light modes
-//@media (prefers-color-scheme: dark) {
-//  [data-color-mode='auto'][data-dark-theme='dark'] {
-body {
-  /* Foregrounds */
-  --color-fg-accent: #58a6ff;
-  --color-fg-default: #f0f6fc;
-  --color-fg-muted: #8b949e;
+@media (prefers-color-scheme: dark) {
+  [data-color-mode='auto'][data-dark-theme='dark'] {
+    /* Foregrounds */
+    --color-fg-accent: #58a6ff;
+    --color-fg-default: #f0f6fc;
+    --color-fg-muted: #8b949e;
 
-  /* Backgrounds */
-  --color-bg-default: #161b22;
-  --color-bg-emphasis: #6e7681;
+    /* Backgrounds */
+    --color-bg-default: #161b22;
 
-  /* Subtle */
-  --color-subtle-accent: rgba(56, 139, 253, 0.15);
+    /* Subtle */
+    --color-subtle-accent: rgba(56, 139, 253, 0.15);
 
-  --color-primer-border-active: #f78166;
-  --color-primer-border-contrast: rgba(255, 255, 255, 0.2);
+    --color-primer-border-active: #f78166;
+    --color-primer-border-contrast: rgba(255, 255, 255, 0.2);
 
-  /* Utils */
-  --color-transparent: rgba(0, 0, 0, 0);
+    /* Utils */
+    --color-transparent: rgba(0, 0, 0, 0);
 
-  /* Languages */
-  --color-lang-python: #3572a5;
-  --color-lang-rust: #dea584;
-  --color-lang-jupyter-notebook: #da5b0b;
-  --color-lang-go: #00add8;
-  --color-lang-js: #f1e05a;
-  --color-lang-c: #555555;
+    /* Languages */
+    --color-lang-python: #3572a5;
+    --color-lang-rust: #dea584;
+    --color-lang-jupyter-notebook: #da5b0b;
+    --color-lang-go: #00add8;
+    --color-lang-js: #f1e05a;
+    --color-lang-c: #555555;
 
-  --color-lang-default: var(--color-lang-c);
+    --color-lang-default: var(--color-lang-c);
+  }
 }
-//}

@@ -4,13 +4,23 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'app-page-selector',
   template: `
     <div class="flex justify-between">
-      <button [disabled]="isPreviousDisabled()" (click)="previousPage()">
-        Previous
+      <button
+        class="btn-default"
+        [disabled]="isPreviousDisabled()"
+        (click)="previousPage()"
+      >
+        Prev
       </button>
       <div>
         {{ pageIndex + 1 }}
       </div>
-      <button [disabled]="isNextDisabled()" (click)="nextPage()">Next</button>
+      <button
+        class="btn-default"
+        [disabled]="isNextDisabled()"
+        (click)="nextPage()"
+      >
+        Next
+      </button>
     </div>
   `
 })
