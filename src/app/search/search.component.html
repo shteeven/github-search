@@ -1,6 +1,7 @@
 <div class="p-2">
   <label for="search" class="sr-only">Search field</label>
   <input
+    data-test="searchInput"
     [value]="searchValue$ | async"
     #search
     (keyup.enter)="updateSearchValue(search.value)"
@@ -10,13 +11,19 @@
   />
 </div>
 
-<ng-container *ngIf="searchValue$ | async; else noSearchValue">
-  <div *ngIf="results$ | async as results; else noSearchResults">
-    {{ results | json }}
-  </div>
-  <ng-template #noSearchResults>
-    No results return for the given search term.
-  </ng-template>
-</ng-container>
+<div data-test="resultContent">
+  <ng-container *ngIf="searchValue$ | async; else noSearchValue">
+    <ng-container *ngIf="items$ | async as items">
+      <ng-container *ngIf="items?.length; else noResults">
+        {{ items | json }}
+      </ng-container>
+      <ng-template #noResults>
+        No results return for the given search term.
+      </ng-template>
+    </ng-container>
+  </ng-container>
 
-<ng-template #noSearchValue> Enter a search value to see results. </ng-template>
+  <ng-template #noSearchValue>
+    Enter a search value to see results.
+  </ng-template>
+</div>

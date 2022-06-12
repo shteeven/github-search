@@ -12,8 +12,8 @@ count, profile pictures, etc.
 X Create search input
 X Filter results by input submissions
 - Create/Style details component (Users)
-- Add default view "Type a search value to see results"
-- Add no results view "No results. Update search to see results"
+X Add default view "Type a search value to see results"
+X Add no results view "No results. Update search to see results"
 - Add error message "Sorry, something went wrong with your search"
 - Create sort dropdown
 - Sort results by input submissions
