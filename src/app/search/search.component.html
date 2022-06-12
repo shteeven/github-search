@@ -18,14 +18,18 @@
     </span>
   </div>
 
-  <div class="flex-grow flex-shrink-0" data-test="resultContent">
+  <div
+    [appLoading]="loading$ | async"
+    class="flex-grow flex-shrink-0"
+    data-test="resultContent"
+  >
     <ng-container *ngIf="searchValue$ | async; else noSearchValue">
       <div *ngIf="items$ | async as items">
         <app-details
           *ngFor="let item of items; trackBy: trackById"
           [item]="item"
         ></app-details>
-        <ng-container *ngIf="!items.length">
+        <ng-container *ngIf="!items?.length">
           No results return for the given search term.
         </ng-container>
       </div>

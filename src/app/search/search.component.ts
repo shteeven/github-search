@@ -7,8 +7,11 @@ import {
   map,
   of,
   shareReplay,
-  switchMap
+  switchMap,
+  tap,
+  throttleTime
 } from 'rxjs';
+import { switchMapAsResource } from '../operators/switch-map-as-resource';
 
 @Component({
   templateUrl: 'search.component.html',
@@ -27,12 +30,14 @@ export class SearchComponent {
   private pageSizeSource = new BehaviorSubject(10);
   pageSize$ = this.pageSizeSource.asObservable();
 
-  results$ = combineLatest([
+  private results$ = combineLatest([
     this.searchValue$,
-    this.pageIndex$.pipe(debounceTime(500)),
+    this.pageIndex$.pipe(debounceTime(300)),
     this.pageSize$
   ]).pipe(
-    switchMap(([searchValue, pageIndex, pageSize]) => {
+    tap((val) => console.log(val)),
+
+    switchMapAsResource(([searchValue, pageIndex, pageSize]) => {
       if (!searchValue) return of(null);
       return this.api.getUserList({
         query: searchValue,
@@ -40,14 +45,19 @@ export class SearchComponent {
         index: pageIndex
       });
     }),
+    tap((val) => console.log(val)),
+
     shareReplay({
       refCount: true,
       bufferSize: 1
     })
   );
 
-  items$ = this.results$.pipe(map((result) => result?.items));
-  count$ = this.results$.pipe(map((result) => result?.total_count ?? 0));
+  loading$ = this.results$.pipe(map((result) => result.loading));
+  items$ = this.results$.pipe(map((result) => result?.payload?.items));
+  count$ = this.results$.pipe(
+    map((result) => result?.payload?.total_count ?? 0)
+  );
   numberOfPages$ = combineLatest([this.pageSize$, this.count$]).pipe(
     map(([pageSize, count]) => Math.ceil(count / pageSize))
   );

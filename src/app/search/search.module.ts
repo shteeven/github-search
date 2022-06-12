@@ -6,6 +6,7 @@ import { SearchComponent } from './search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailsModule } from '../components/details/details.module';
 import { PageSelectorModule } from '../components/page-selector/page-selector.module';
+import { LoadingIndicatorModule } from '../components/loading-indicator/loading-indicator.module';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     HttpClientModule,
     DetailsModule,
-    PageSelectorModule
+    PageSelectorModule,
+    LoadingIndicatorModule
   ],
   declarations: [SearchComponent],
   providers: [SearchApiService]

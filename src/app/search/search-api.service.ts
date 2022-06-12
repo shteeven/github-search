@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PaginatedQuery, QueryResponse } from './search.models';
-import { map, Observable, of, switchMap, tap, zip } from 'rxjs';
+import { delay, map, Observable, of, switchMap, tap, zip } from 'rxjs';
 import { UserDetails } from '../models/details.models';
 import { searchResponseMock } from './search-mock';
 
@@ -18,7 +18,7 @@ export class SearchApiService {
     index,
     searchType
   }: PaginatedQuery): Observable<QueryResponse<UserDetails>> {
-    return of(searchResponseMock) as any;
+    return of(searchResponseMock).pipe(delay(500)) as any;
 
     // const queryProperties = [
     //   `q=${encodeURIComponent(query)}`,
