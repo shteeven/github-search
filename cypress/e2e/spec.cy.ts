@@ -1,5 +1,3 @@
-import { QueryItem } from '../../src/app/search/search.models';
-
 describe('Search page', () => {
   it('should show correct messages or results based on search value or response', () => {
     cy.visit('/');

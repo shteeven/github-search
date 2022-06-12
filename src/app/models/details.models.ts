@@ -1,4 +1,4 @@
-import { QueryItemType } from '../search/search.models';
+export type ItemType = 'User';
 
 export interface GenericDetails {
   login: string;
@@ -17,7 +17,7 @@ export interface GenericDetails {
   repos_url: string;
   events_url: string;
   received_events_url: string;
-  type: QueryItemType;
+  type: ItemType;
   site_admin: boolean;
   score: number;
 }

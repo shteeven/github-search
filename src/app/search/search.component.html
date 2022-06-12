@@ -12,6 +12,10 @@
     />
   </div>
 
+  <div class="color-warn" *ngIf="error$ | async">
+    Looks like something went wrong with the last request. Please try again.
+  </div>
+
   <div class="flex justify-between">
     <span>
       {{ count$ | async }} {{ selectedFilter$ | async | titlecase }}
@@ -40,7 +44,7 @@
     </ng-template>
   </div>
   <app-page-selector
-    [pageIndex]="pageIndex$ | async"
+    [page]="pageIndex$ | async"
     [numberOfPages]="numberOfPages$ | async"
     (pageSelected)="pageSelected($event)"
   >

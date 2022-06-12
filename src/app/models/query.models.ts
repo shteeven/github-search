@@ -1,11 +1,9 @@
-export type QueryItemType = 'User';
-
-export const SEARCH_TYPES = {
-  repositories: 'repositories',
-  users: 'users'
-} as const;
-
-export type SearchType = typeof SEARCH_TYPES[keyof typeof SEARCH_TYPES];
+// export const SEARCH_TYPES = {
+//   repositories: 'repositories',
+//   users: 'users'
+// } as const;
+//
+// export type SearchType = typeof SEARCH_TYPES[keyof typeof SEARCH_TYPES];
 
 export const SORT_TYPES = {
   updated: 'updated',
@@ -26,7 +24,7 @@ export interface PaginatedQuery {
   index?: number;
   size?: number;
   sort?: Sort;
-  searchType?: SearchType;
+  // searchType?: SearchType;
 }
 
 export interface QueryResponse<T = any> {

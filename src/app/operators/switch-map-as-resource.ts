@@ -1,4 +1,4 @@
-import { Observable, of, OperatorFunction } from 'rxjs';
+import { Observable, of, OperatorFunction, shareReplay } from 'rxjs';
 import { catchError, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { ResourceStateModel } from '../models/resource-state.model';
 
@@ -46,7 +46,11 @@ export function switchMapAsResource<T, O>(
           startWith(resourceGet(previousResourceValue))
         )
       ),
-      startWith(resourceGet())
+      startWith(resourceGet()),
+      shareReplay({
+        refCount: true,
+        bufferSize: 1
+      })
     );
   };
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { UserDetails } from '../../models/details.models';
+import { UserDetails } from '../models/details.models';
 
 @Component({
   selector: 'app-details',

@@ -11,9 +11,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       >
         Prev
       </button>
-      <div>
-        {{ pageIndex + 1 }}
-      </div>
+      <div *ngIf="numberOfPages">{{ page }} / {{ numberOfPages }}</div>
       <button
         class="btn-default"
         [disabled]="isNextDisabled()"
@@ -26,23 +24,23 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class PageSelectorComponent {
   @Input() numberOfPages!: number;
-  @Input() pageIndex!: number;
+  @Input() page!: number;
 
   @Output() pageSelected = new EventEmitter();
 
   previousPage() {
-    this.pageSelected.emit(this.pageIndex - 1);
+    this.pageSelected.emit(this.page);
   }
 
   nextPage() {
-    this.pageSelected.emit(this.pageIndex + 1);
+    this.pageSelected.emit(this.page + 1);
   }
 
   isPreviousDisabled() {
-    return this.pageIndex === 0;
+    return this.page === 1;
   }
 
   isNextDisabled() {
-    return this.pageIndex + 1 === this.numberOfPages;
+    return !this.numberOfPages || this.page === this.numberOfPages;
   }
 }

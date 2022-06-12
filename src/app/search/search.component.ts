@@ -1,16 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchApiService } from './search-api.service';
-import {
-  BehaviorSubject,
-  combineLatest,
-  debounceTime,
-  map,
-  of,
-  shareReplay,
-  switchMap,
-  tap,
-  throttleTime
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, map, of } from 'rxjs';
 import { switchMapAsResource } from '../operators/switch-map-as-resource';
 
 @Component({
@@ -18,25 +8,24 @@ import { switchMapAsResource } from '../operators/switch-map-as-resource';
   styleUrls: ['search.component.scss']
 })
 export class SearchComponent {
-  private searchValueSource = new BehaviorSubject('steven');
+  private searchValueSource = new BehaviorSubject('');
   searchValue$ = this.searchValueSource.pipe(map((value) => value?.trim()));
 
   private selectedFilterSource = new BehaviorSubject('users');
   selectedFilter$ = this.selectedFilterSource.asObservable();
 
-  private pageIndexSource = new BehaviorSubject(0);
+  private pageIndexSource = new BehaviorSubject(1);
   pageIndex$ = this.pageIndexSource.asObservable();
 
-  private pageSizeSource = new BehaviorSubject(10);
+  private pageSizeSource = new BehaviorSubject(3);
   pageSize$ = this.pageSizeSource.asObservable();
 
   private results$ = combineLatest([
     this.searchValue$,
-    this.pageIndex$.pipe(debounceTime(300)),
+    this.pageIndex$,
     this.pageSize$
   ]).pipe(
-    tap((val) => console.log(val)),
-
+    debounceTime(300),
     switchMapAsResource(([searchValue, pageIndex, pageSize]) => {
       if (!searchValue) return of(null);
       return this.api.getUserList({
@@ -44,12 +33,6 @@ export class SearchComponent {
         size: pageSize,
         index: pageIndex
       });
-    }),
-    tap((val) => console.log(val)),
-
-    shareReplay({
-      refCount: true,
-      bufferSize: 1
     })
   );
 
@@ -61,6 +44,7 @@ export class SearchComponent {
   numberOfPages$ = combineLatest([this.pageSize$, this.count$]).pipe(
     map(([pageSize, count]) => Math.ceil(count / pageSize))
   );
+  error$ = this.results$.pipe(map((result) => result.error));
 
   constructor(private api: SearchApiService) {}
 

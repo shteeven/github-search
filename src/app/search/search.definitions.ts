@@ -1,5 +1,5 @@
 import { OptionModel } from '../models/option.model';
-import { Sort, SORT_TYPES } from './search.models';
+import { Sort, SORT_TYPES } from '../models/query.models';
 
 export const sortOptions: OptionModel<Sort>[] = [
   {
