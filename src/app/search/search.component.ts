@@ -17,7 +17,7 @@ export class SearchComponent {
   private pageIndexSource = new BehaviorSubject(1);
   pageIndex$ = this.pageIndexSource.asObservable();
 
-  private pageSizeSource = new BehaviorSubject(3);
+  private pageSizeSource = new BehaviorSubject(10);
   pageSize$ = this.pageSizeSource.asObservable();
 
   private results$ = combineLatest([

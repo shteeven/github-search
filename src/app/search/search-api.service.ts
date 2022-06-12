@@ -21,7 +21,7 @@ export class SearchApiService {
       `sort=${sort?.property || ''}`,
       `page=${index || 1}`,
       `order=${sort?.direction || ''}`,
-      `per_page=${size || 3}`
+      `per_page=${size || 10}`
     ];
     return this.http
       .get<QueryResponse<UserDetails>>(
@@ -29,9 +29,11 @@ export class SearchApiService {
       )
       .pipe(
         switchMap((res) => {
+          // Iterate over items to make request for user details
           const detailsReqs = res.items.map((item) =>
             this.http.get<UserDetails>(`${item.url}`)
           );
+          // combine request results
           return zip(detailsReqs).pipe(
             map((itemsDetails) => {
               return {
